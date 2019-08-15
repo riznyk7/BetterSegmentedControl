@@ -46,12 +46,7 @@ import Foundation
     }
     
     
-    public var initialIndicatorViewFrame: CGRect? {
-        didSet {
-            guard let frame = initialIndicatorViewFrame else { return }
-            onFrameUpdate?(frame)
-        }
-    }
+    public var initialIndicatorViewFrame: CGRect?
     // MARK: Properties
     /// The selected index.
     public private(set) var index: Int
@@ -367,6 +362,7 @@ import Foundation
             frame.origin.x += gestureRecognizer.translation(in: self).x
             frame.origin.x = max(min(frame.origin.x, bounds.width - indicatorViewInset - frame.width), indicatorViewInset)
             indicatorView.frame = frame
+            onFrameUpdate?(frame)
         case .ended, .failed, .cancelled:
             setIndex(nearestIndex(toPoint: indicatorView.center))
         default: break
