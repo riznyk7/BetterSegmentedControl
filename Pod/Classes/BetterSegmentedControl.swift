@@ -44,7 +44,14 @@ import Foundation
         static let springDamping: CGFloat = 0.75
         static let withoutBounceDuration: TimeInterval = 0.2
     }
-        
+    
+    
+    public var initialIndicatorViewFrame: CGRect? {
+        didSet {
+            guard let frame = initialIndicatorViewFrame else { return }
+            onFrameUpdate?(frame)
+        }
+    }
     // MARK: Properties
     /// The selected index.
     public private(set) var index: Int
@@ -163,12 +170,6 @@ import Foundation
     // MARK: Private properties
     private let normalSegmentsView = UIView()
     private let selectedSegmentsView = UIView()
-    var initialIndicatorViewFrame: CGRect? {
-        didSet {
-            guard let frame = initialIndicatorViewFrame else { return }
-            onFrameUpdate?(frame)
-        }
-    }
 
     private var tapGestureRecognizer: UITapGestureRecognizer!
     private var panGestureRecognizer: UIPanGestureRecognizer!
