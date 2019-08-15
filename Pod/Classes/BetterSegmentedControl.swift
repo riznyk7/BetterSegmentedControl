@@ -165,7 +165,7 @@ import Foundation
         }
     }
     
-    var onFrameUpdate: ((CGRect) -> Void)?
+    public var onFrameUpdate: ((CGRect) -> Void)?
     
     // MARK: Private properties
     private let normalSegmentsView = UIView()
