@@ -158,10 +158,17 @@ import Foundation
         }
     }
     
+    var onFrameUpdate: ((CGRect) -> Void)?
+    
     // MARK: Private properties
     private let normalSegmentsView = UIView()
     private let selectedSegmentsView = UIView()
-    private var initialIndicatorViewFrame: CGRect?
+    var initialIndicatorViewFrame: CGRect? {
+        didSet {
+            guard let frame = initialIndicatorViewFrame else { return }
+            onFrameUpdate?(frame)
+        }
+    }
 
     private var tapGestureRecognizer: UITapGestureRecognizer!
     private var panGestureRecognizer: UIPanGestureRecognizer!
