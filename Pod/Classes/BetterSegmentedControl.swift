@@ -160,7 +160,7 @@ import Foundation
         }
     }
     
-    public var onFrameUpdate: ((CGRect) -> Void)?
+    public var onProgressChange: ((CGFloat) -> Void)?
     
     // MARK: Private properties
     private let normalSegmentsView = UIView()
@@ -362,7 +362,9 @@ import Foundation
             frame.origin.x += gestureRecognizer.translation(in: self).x
             frame.origin.x = max(min(frame.origin.x, bounds.width - indicatorViewInset - frame.width), indicatorViewInset)
             indicatorView.frame = frame
-            onFrameUpdate?(frame)
+            onProgressChange?(
+                (frame.origin.x - indicatorViewInset) /  (normalSegmentsView.bounds.width - frame.width - 2*indicatorViewInset)
+            )
         case .ended, .failed, .cancelled:
             setIndex(nearestIndex(toPoint: indicatorView.center))
         default: break
