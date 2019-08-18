@@ -40,9 +40,9 @@ import Foundation
     
     // MARK: Constants
     private struct Animation {
-        static let withBounceDuration: TimeInterval = 0.3
+        static let withBounceDuration: TimeInterval = 0.35
         static let springDamping: CGFloat = 0.75
-        static let withoutBounceDuration: TimeInterval = 0.2
+        static let withoutBounceDuration: TimeInterval = 0.35
     }
     
     
