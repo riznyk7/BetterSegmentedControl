@@ -160,7 +160,7 @@ import Foundation
         }
     }
     
-    public var onProgressChange: ((CGFloat) -> Void)?
+    public var onProgressChange: ((_ progress: CGFloat, _ animated: Bool) -> Void)?
     public func setProgress(_ progress: CGFloat) {
         if let initialIndicatorViewFrame = initialIndicatorViewFrame {
             var frame = initialIndicatorViewFrame
@@ -182,7 +182,7 @@ import Foundation
     // MARK: Private properties
     private let normalSegmentsView = UIView()
     private let selectedSegmentsView = UIView()
-
+    
     private var tapGestureRecognizer: UITapGestureRecognizer!
     private var panGestureRecognizer: UIPanGestureRecognizer!
     
@@ -338,7 +338,7 @@ import Foundation
             })
         } else {
             moveIndicatorView()
-
+            
             if shouldSendEvent {
                 sendActions(for: .valueChanged)
             }
@@ -360,9 +360,8 @@ import Foundation
     }
     private func moveIndicatorView() {
         indicatorView.frame = normalSegments[self.index].frame
-        onProgressChange?(
-            (indicatorView.frame.origin.x - indicatorViewInset) /  (normalSegmentsView.bounds.width - indicatorView.frame.width - 2*indicatorViewInset)
-        )
+        let progress = (indicatorView.frame.origin.x - indicatorViewInset) /  (normalSegmentsView.bounds.width - indicatorView.frame.width - 2*indicatorViewInset)
+        onProgressChange?(progress, true)
         
         layoutIfNeeded()
     }
@@ -383,9 +382,8 @@ import Foundation
             frame.origin.x += gestureRecognizer.translation(in: self).x
             frame.origin.x = max(min(frame.origin.x, bounds.width - indicatorViewInset - frame.width), indicatorViewInset)
             indicatorView.frame = frame
-            onProgressChange?(
-                (frame.origin.x - indicatorViewInset) /  (normalSegmentsView.bounds.width - frame.width - 2*indicatorViewInset)
-            )
+            let progress = (frame.origin.x - indicatorViewInset) /  (normalSegmentsView.bounds.width - frame.width - 2*indicatorViewInset)
+            onProgressChange?(progress, false)
         case .ended, .failed, .cancelled:
             setIndex(nearestIndex(toPoint: indicatorView.center))
         default: break
