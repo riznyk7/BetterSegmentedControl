@@ -169,6 +169,14 @@ import Foundation
         } else {
             initialIndicatorViewFrame = indicatorView.frame
         }
+        
+        guard segments.count == 2 else { return }
+        
+        if progress == 0 {
+            self.index = 0
+        } else if progress == 1 {
+            self.index = 1
+        }
     }
     
     // MARK: Private properties
