@@ -352,6 +352,10 @@ import Foundation
     }
     private func moveIndicatorView() {
         indicatorView.frame = normalSegments[self.index].frame
+        onProgressChange?(
+            (indicatorView.frame.origin.x - indicatorViewInset) /  (normalSegmentsView.bounds.width - indicatorView.frame.width - 2*indicatorViewInset)
+        )
+        
         layoutIfNeeded()
     }
     
