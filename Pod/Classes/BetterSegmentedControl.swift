@@ -161,6 +161,15 @@ import Foundation
     }
     
     public var onProgressChange: ((CGFloat) -> Void)?
+    public func setProgress(_ progress: CGFloat) {
+        if let initialIndicatorViewFrame = initialIndicatorViewFrame {
+            var frame = initialIndicatorViewFrame
+            frame.origin.x = (normalSegmentsView.bounds.width-frame.width-2*indicatorViewInset)*progress + indicatorViewInset
+            indicatorView.frame = frame
+        } else {
+            initialIndicatorViewFrame = indicatorView.frame
+        }
+    }
     
     // MARK: Private properties
     private let normalSegmentsView = UIView()
